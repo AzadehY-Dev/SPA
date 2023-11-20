@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage People</h2>
+<a class="btn btn-success" id="btnAdd" > Add new person</a>
+<div id="view">
+    please wait...
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#view").load("/Home/List");
+        });
+
+        $("#btnAdd").click(function () {
+            $("#view").load("/Home/Add");
+        });
+        function Edit(id) {
+          
+            $("#view").load("/Home/Edit/"+id);  
+            
+        }
+        function Delete(id) {
+            if (confirm("Are you sure?")) {
+                $.ajax({
+                    url: "/Api/People/" + id,
+                    type: "Delete"
+                }).done(function () {
+                    $("#tr_" + id).addClass("danger");
+                    $("#tr_" + id).hide('slow');
+                });
+            }
+        }
+    </script>
+}
+

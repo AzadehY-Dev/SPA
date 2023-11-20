@@ -1,0 +1,33 @@
+﻿<h2>Add new person</h2>
+<dl class="dl-horizontal">
+    <dt>Name:</dt>
+    <dd><input type="text" id="txtName" class="form-control" placeholder="Name..." /></dd>
+
+    <dt>Family:</dt>
+    <dd><input type="text" id="txtFamily" class="form-control" placeholder="Family..." /></dd>
+
+    <dt>Age</dt>
+    <dd><input type="text" id="txtAge" class="form-control" placeholder="Age..." /></dd>
+
+    <dt></dt>
+    <dd><input type="button" class="btn btn-success" value="Save" id="btnSave"/></dd>
+
+
+</dl>
+
+<script>
+    $("#btnSave").click(function () {
+        var person = {
+            Name: $("#txtName").val(),
+            Family: $("#txtFamily").val(),
+            Age: $("#txtAge").val()
+        }
+        $.ajax({
+            url: "/Api/People",
+            type: "Post",
+            data: person
+        }).done(function () {
+            $("#view").load("/Home/List");
+        });
+    });
+</script>

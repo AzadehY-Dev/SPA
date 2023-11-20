@@ -1,0 +1,22 @@
+﻿<h2>List People</h2>
+
+<table class="table table-bordered" id="list">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Family</th>
+        <th>Age</th>
+        <th>Command</th>
+      
+    </tr>
+</table>
+
+<script>
+    $.getJSON("/Api/People", function (res) {
+        $.each(res, function (key, val) {
+            var item = "<tr id='tr_"+val.ID+"'><td>" + val.ID + "</td><td>" + val.Name + "</td > <td>" + val.Family + "</td><td> " + val.Age + "</td><td><a class='btn btn-warning btn-sm' onclick='Edit(" + val.ID + ")'>Edit</a>  <a class='btn btn-danger btn-sm' onclick='Delete(" + val.ID +")'>Delete</a></td></tr> ";
+            $("#list").append(item);
+        });
+    })
+   
+</script>

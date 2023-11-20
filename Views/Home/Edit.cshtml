@@ -1,0 +1,42 @@
+﻿
+@model int
+
+<h2>Edit person</h2>
+<dl class="dl-horizontal">
+    <dt>Name:</dt>
+    <dd><input type="text" id="txtName" class="form-control" placeholder="Name..." /></dd>
+
+    <dt>Family:</dt>
+    <dd><input type="text" id="txtFamily" class="form-control" placeholder="Family..." /></dd>
+
+    <dt>Age</dt>
+    <dd><input type="text" id="txtAge" class="form-control" placeholder="Age..." /></dd>
+
+    <dt></dt>
+    <dd><input type="button" class="btn btn-warning" value="Edit" id="btnEdit" /></dd>
+
+
+</dl>
+
+<script>
+    $.getJSON("/Api/People/" + @Model , function (res) {
+        $("#txtName").val(res.Name);
+        $("#txtFamily").val(res.Family);
+        $("#txtAge").val(res.Age);
+    });
+    $("#btnEdit").click(function () {
+        var person = {
+            ID: @Model ,
+            Name: $("#txtName").val(),
+            Family: $("#txtFamily").val(),
+            Age: $("#txtAge").val()
+        }
+    $.ajax({
+        url: "/Api/People/" + @Model,
+            type: "Put",
+            data: person
+        }).done(function () {
+            $("#view").load("/Home/List");
+        });
+    });
+</script>
